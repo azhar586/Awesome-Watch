@@ -1,0 +1,210 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
+    background: linear-gradient(145deg, #0f172a, #1e3a8a); /* Dark mode default */
+    transition: background 0.5s ease;
+}
+
+body.light-mode {
+    background: linear-gradient(145deg, #f7e7ce, #87ceeb); /* Light mode: Sand to sky blue */
+}
+
+.clock-container {
+    position: relative;
+    width: 450px;
+    height: 450px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.7), 
+                inset 0 0 30px rgba(255, 215, 0, 0.1),
+                inset 0 0 10px rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: pulse 8s infinite ease-in-out;
+    border: 2px solid rgba(255, 215, 0, 0.3); /* Dark mode border */
+    transition: all 0.5s ease;
+}
+
+body.light-mode .clock-container {
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.2), 
+                inset 0 0 20px rgba(255, 127, 80, 0.1); /* Coral glow */
+    border: 2px solid rgba(255, 127, 80, 0.5); /* Coral border */
+}
+
+.clock-face {
+    text-align: center;
+    color: #f5f5f5;
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.6), 0 0 5px rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    transition: all 0.5s ease;
+}
+
+body.light-mode .clock-face {
+    color: #333; /* Darker text for light mode */
+    text-shadow: 0 0 10px rgba(255, 127, 80, 0.5); /* Coral glow */
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#time {
+    font-size: 5rem;
+    font-weight: 300;
+    letter-spacing: 3px;
+    display: block;
+    background: linear-gradient(90deg, #ffd700, #ffeb3b); /* Dark mode gold */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: timeGlow 4s infinite alternate;
+}
+
+body.light-mode #time {
+    background: linear-gradient(90deg, #ff7f50, #ff4500); /* Coral to orange */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#date {
+    font-size: 1.8rem;
+    margin-top: 15px;
+    display: block;
+    color: #e0f7fa; /* Dark mode cyan */
+    text-shadow: 0 0 10px rgba(0, 188, 212, 0.5);
+}
+
+body.light-mode #date {
+    color: #4682b4; /* Steel blue */
+    text-shadow: 0 0 5px rgba(70, 130, 180, 0.4);
+}
+
+#location {
+    font-size: 1.2rem;
+    margin-top: 15px;
+    display: block;
+    color: #b0bec5;
+    opacity: 0.9;
+    letter-spacing: 1px;
+}
+
+body.light-mode #location {
+    color: #696969; /* Dim gray */
+    opacity: 1;
+}
+
+/* Animations */
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+@keyframes timeGlow {
+    0% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.4); }
+    100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.9), 0 0 30px rgba(255, 255, 255, 0.6); }
+}
+
+body.light-mode #time {
+    animation: timeGlowLight 4s infinite alternate;
+}
+
+@keyframes timeGlowLight {
+    0% { text-shadow: 0 0 10px rgba(255, 127, 80, 0.5); }
+    100% { text-shadow: 0 0 20px rgba(255, 127, 80, 0.8); }
+}
+
+/* Glowing effects */
+.clock-container::before {
+    content: '';
+    position: absolute;
+    width: 110%;
+    height: 110%;
+    background: radial-gradient(circle, rgba(255, 215, 0, 0.15), transparent 70%);
+    border-radius: 50%;
+    animation: orbGlow 6s infinite alternate;
+    z-index: -1;
+}
+
+body.light-mode .clock-container::before {
+    background: radial-gradient(circle, rgba(255, 127, 80, 0.2), transparent 70%);
+}
+
+.clock-container::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(0, 188, 212, 0.2), transparent 60%);
+    border-radius: 50%;
+    animation: innerGlow 4s infinite alternate;
+    z-index: -1;
+}
+
+body.light-mode .clock-container::after {
+    background: radial-gradient(circle, rgba(135, 206, 235, 0.3), transparent 60%);
+}
+
+@keyframes orbGlow {
+    0% { opacity: 0.4; transform: scale(0.95); }
+    100% { opacity: 0.7; transform: scale(1); }
+}
+
+@keyframes innerGlow {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.5; }
+}
+
+/* Particle effect */
+body::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,215,0,0.3)"/></svg>') repeat;
+    opacity: 0.1;
+    animation: drift 20s infinite linear;
+}
+
+body.light-mode::before {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="rgba(255,127,80,0.3)"/></svg>') repeat;
+    opacity: 0.15;
+}
+
+@keyframes drift {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
+}
+
+/* Toggle Button */
+.mode-toggle {
+    position: absolute;
+    bottom: 20px;
+    padding: 10px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    background: #ffd700;
+    border: none;
+    border-radius: 25px;
+    color: #0f172a;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mode-toggle:hover {
+    background: #ffeb3b;
+    transform: scale(1.05);
+}
+
+body.light-mode .mode-toggle {
+    background: #ff7f50;
+    color: #fff;
+}
+
+body.light-mode .mode-toggle:hover {
+    background: #ff4500;
+}
